@@ -1,2 +1,1 @@
-# taskManager
-IS-345 Project code, Inital 
+# taskManager, IS-345 Project code Initial 
