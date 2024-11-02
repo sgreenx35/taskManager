@@ -1,62 +1,113 @@
 # taskManager, IS-345 Project code Initial 
-package inital_Project;
+package project_Code;
 
+import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-//Code to create a task manager
-//By inputing variables and being able to change, edit, or delete when finished
+// make sure to open with windowbuilder editor for the GUI functions
+//Constructors code
+// TaskManager class to handle tasks
+class TaskManager {
+    private List<String> tasks = new ArrayList<>(); // List to store multiple tasks, arraylist allows for that
 
-//still working on a switch
+    // Method to add a task
+    public void addTask(String newTask) {
+        tasks.add(newTask); // Add the new task to the list
+        System.out.println("Task added: " + newTask);
+    }
 
-public class project_Code {
-
-	public static void main(String[] args) {
-	Scanner reader = new Scanner(System.in);
-	String response = "";
-	
-	//Create a task to store in a user input variable
-	System.out.print("Enter a task you like to keep track of: ");
-	String task = reader.nextLine();
-	System.out.println(task + " task created!");
-	
-	//Loop to continue to add, edit, or delete a task
-	while (true) {
-        System.out.println("\nWould you like to add, edit, or delete a previous task? \n*(Enter add, edit, delete, or exit to finish)*: ");
-        response = reader.nextLine();
-        
-        //user chooses to add a task
-        if (response.equals("add")) {
-            System.out.print("Enter a task you'd like to add: ");
-            String newTask = reader.nextLine();
-            task = newTask; // Replace the previous task with the new one (you can store multiple tasks with a List if needed)
-            System.out.println(newTask + " task added!");
-        }
-        //user chooses to edit the task
-        else if (response.equals("edit")) {
-            System.out.print("Enter the updated task: ");
-            String updatedTask = reader.nextLine();
-            task = updatedTask; // updates the task
-            System.out.println("Task is updated to: " + updatedTask);
-        }
-        //user chooses to delete the task
-        else if (response.equals("delete")) {
-            task = null; // deletes the task
-            System.out.println("The previous task is deleted!");
-        }
-        //user chooses to exit
-        else if (response.equals("exit")) {
-            System.out.println("You're all set with your tasks! ");
-            break; // exits the loop
-        }
-        // If the input is invalid, by chance
-        else {
-            System.out.println("Invalid input. Please enter add, edit, delete, or exit please.");
+    // Method to delete a task, used google and w3schools.com/java to help for this section
+    public void deleteTask(int taskIndex) {
+        if (taskIndex >= 0 && taskIndex < tasks.size()) {
+            System.out.println("Task deleted: " + tasks.remove(taskIndex));
+        } else {
+            System.out.println("Invalid task number.");
         }
     }
-	// add a switch for a count of tasks
-	
-	}
- }
+
+    //Method to display the count of tasks
+    public void displayTaskCount() {
+        int taskCount = tasks.size();
+        switch (taskCount) {
+            case 0:
+                System.out.println("No tasks added.");
+                break;
+            case 1:
+                System.out.println("You have 1 task.");
+                break;
+            default:
+                System.out.println("You have " + taskCount + " tasks.");
+                break;
+        }
+    }
+
+    // to view all tasks 
+    public void viewTasks() {
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks to display.");
+        } else {
+            System.out.println("\nYour tasks:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+    }
+}
+
+//Class code
+// Main class to run the task manager
+public class project_Code {
+    public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);
+        TaskManager taskManager = new TaskManager(); // Created an instance of taskmanager for the class
+
+        System.out.println("Welcome to the Task Manager!");
+
+        while (true) {
+            System.out.println("\nChoose an action: add, delete, view, count, or exit");
+            String response = reader.nextLine().toLowerCase(); // instance user input variable
+            
+// switch used to keep input phase in a proper loop compared to a for loop 
+            switch (response) {
+                case "add": //prompts to ask what task you would like to add
+                    System.out.print("Enter a new task: ");
+                    String newTask = reader.nextLine();
+                    taskManager.addTask(newTask);
+                    break;
+
+                case "delete": //prompts to delete the task you ask for
+                    taskManager.viewTasks();
+                    System.out.print("Enter the task number you want to delete: ");
+                    int taskNumber = reader.nextInt();
+                    reader.nextLine(); // Clears a new line
+                    taskManager.deleteTask(taskNumber - 1);
+                    break;
+
+                case "view": //shows each task you have created in the input phase
+                    taskManager.viewTasks();
+                    break;
+
+                case "count": //displays the number of tasks you have created
+                    taskManager.displayTaskCount();
+                    break;
+
+                case "exit": //exits the task manager input phase
+                    System.out.println("Exiting the task manager thank you for using this.");
+                    reader.close();
+                    return;
+
+                default: // If nothing fits within the key words for the prompt then it will be invalid
+                    System.out.println("Invalid option. Please try add, delete, view, count, or exit");
+            }
+        }
+    }
+    //GUI code, windowbuilder editor
+    public class guiTask {
+    	
+    }
+}
 
 //citation
 // I used w3schools java while loops for help
