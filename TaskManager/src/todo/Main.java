@@ -11,6 +11,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+import java.io.*;
+import java.util.InputMismatchException;
+
 public class Main {
 	//the instance variable
 	private static JPanel taskPanel;
@@ -22,7 +29,7 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Looked this up on stacks overflow (mainly had help there)
 		frame.setSize(500, 500);
 		frame.setLayout(null);
-		
+	
 		//panel for the task GUI and maintains them
 		taskPanel = new JPanel();
 		taskPanel.setLayout(new BoxLayout(taskPanel, BoxLayout.Y_AXIS));		
@@ -106,5 +113,8 @@ public class Main {
 		taskPanel.repaint();
 		
 	}
-}//End of Main.java
+	
 
+
+	
+}//End of Main.java

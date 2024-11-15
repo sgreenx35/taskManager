@@ -2,11 +2,16 @@ package todo;
 
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.ImageIcon; //allows import of an image, cite path
 //imports for buttons and panel utility 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -29,13 +34,14 @@ public class Addtask {
 		label.setBounds(10,10,50,20);
 	
 		//create text field for user input
-		taskTextField = new JTextField(); 
+		taskTextField = new JTextField();
 		taskTextField.setBounds(70,10,200,20); //200 is horizontal, 20 is vertical, 70, 10 is coordinates
 		
 		//create 'AddTask' button with an image 
 		ImageIcon icon = new ImageIcon("images/add.png"); //name of image, make sure to place image in 'image' folder through eclipse folder
 		Image scaledImage = icon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		ImageIcon scaledIcon = new ImageIcon(scaledImage); //converts back to image icon to be usable
+		
 		//creates button
 			addButton = new JButton("Add Task", scaledIcon);
 		addButton.setBounds(10,40,120,30);
@@ -49,6 +55,8 @@ public class Addtask {
 		panel.add(label);
 		panel.add(taskTextField);
 		panel.add(addButton);
+		
+		
 	}
 	
 	//get functions
@@ -61,6 +69,27 @@ public class Addtask {
 	public JButton getAddButton() {
 		return addButton;
 	}
-	
+	//read to file tasksList.txt and write the file
+		//Used Java Read Files from w3schools and Stack overflow
+		   
+		public Addtask(ActionEvent e) {
+		    try{
+		        BufferedWriter addUser = new BufferedWriter(new FileWriter("taskList.txt"));
+		       
 
+		        if(e.getSource() == addButton){
+		          
+		           addUser.write(taskTextField.getText() +"\n");
+		           
+
+		           addUser.close();
+		          
+
+		           JOptionPane.showMessageDialog(null, "File Successfully Created", "Success",1);
+		        }
+		    }
+		    catch(IOException err){
+		        System.err.println("File not Found.");
+		    }
+		}
 }
